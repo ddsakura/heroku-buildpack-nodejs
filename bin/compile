@@ -111,6 +111,7 @@ function phantomjs_package_download() {
   curl $package -s -o $location/$FILE_NAME
 
   echo "-----> Extracting PhantomJS binaries"
+  mkdir -p "$BUILD_DIR/bin"
   tar zxf $location/$FILE_NAME -C $BUILD_DIR/bin/phantomjs
 }
 
@@ -170,14 +171,13 @@ echo "-----> Fetching Node.js binaries"
 package_download "nodejs" "${NODE_VERSION}" "${VENDORED_NODE}"
 package_download "npm" "${NPM_VERSION}" "${VENDORED_NPM}"
 package_download "scons" "${SCONS_VERSION}" "${VENDORED_SCONS}"
+phantomjs_package_download "phantomjs" "1.6.1" "${VENDORED_PHANTOMJS}"
 
 # vendor node into the slug
 PATH="$BUILD_DIR/bin:$PATH"
 echo "-----> Vendoring node into slug"
-mkdir -p "$BUILD_DIR/bin"
-cp "$VENDORED_NODE/bin/node" "$BUILD_DIR/bin/node"
 
-phantomjs_package_download "phantomjs" "1.6.1" "${VENDORED_PHANTOMJS}"
+cp "$VENDORED_NODE/bin/node" "$BUILD_DIR/bin/node"
 
 # setting up paths for building
 PATH="$VENDORED_SCONS:$VENDORED_NODE/bin:$PATH"
