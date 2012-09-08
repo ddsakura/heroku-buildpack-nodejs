@@ -135,6 +135,9 @@ engine_requests["npm"]=$(package_engine_version "npm")
 
 echo "-----> Resolving engine versions"
 
+echo "mkdir bin folder"
+mkdir -p "$BUILD_DIR/bin"
+
 # add a warning if no version of node specified
 if [ "${engine_requests["node"]}" == "" ]; then
   echo
@@ -177,7 +180,7 @@ phantomjs_package_download "phantomjs" "1.6.1" "${VENDORED_PHANTOMJS}"
 # vendor node into the slug
 PATH="$BUILD_DIR/bin:$PATH"
 echo "-----> Vendoring node into slug"
-mkdir -p "$BUILD_DIR/bin"
+
 cp "$VENDORED_NODE/bin/node" "$BUILD_DIR/bin/node"
 
 # setting up paths for building
