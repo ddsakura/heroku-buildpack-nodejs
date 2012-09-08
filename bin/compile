@@ -200,3 +200,5 @@ echo "Test123"
 pwd
 ls -al
 ls -al vendor/phantomjs
+ls -al vendor/phantomjs/bin
+ls -al vendor/phantomjs/lib
